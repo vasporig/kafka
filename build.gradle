@@ -19,19 +19,68 @@ buildscript {
   repositories {
     mavenCentral()
     jcenter()
+
   }
-  apply from: file('gradle/buildscript.gradle'), to: buildscript
+  
 
   dependencies {
-    // For Apache Rat plugin to ignore non-Git files
+
+   //runtime 'net.sourceforge.argparse4j:argparse4j:0.7.0'
+    // classpath 'org.apache.directory.api:api-all:1.0.0'
+    // classpath 'org.apache.directory.server:apacheds-core-api:2.0.0-M24'
+    // classpath 'org.apache.directory.server:apacheds-interceptor-kerberos:2.0.0-M24'
+    // classpath 'org.apache.directory.server:apacheds-protocol-shared:2.0.0-M24'
+    // classpath 'org.apache.directory.server:apacheds-protocol-kerberos:2.0.0-M24'
+    // classpath 'org.apache.directory.server:apacheds-protocol-ldap:2.0.0-M24'
+    // classpath 'org.apache.directory.server:apacheds-ldif-partition:2.0.0-M24'
+    // classpath 'org.apache.directory.server:apacheds-mavibot-partition:2.0.0-M24'
+    // classpath 'org.apache.directory.server:apacheds-jdbm-partition:2.0.0-M24'
+    // classpath 'org.bouncycastle:bcpkix-jdk15on:1.58'
+    // classpath 'org.easymock:easymock:3.5.1'
+    // classpath 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+    // classpath 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.4'
+    // classpath 'org.eclipse.jetty:jetty-server:9.2.24.v20180105'
+    // classpath 'org.eclipse.jetty:jetty-client:9.2.24.v20180105'
+    // classpath 'org.eclipse.jetty:jetty-servlet:9.2.24.v20180105'
+    // classpath 'org.eclipse.jetty:jetty-servlets:9.2.24.v20180105'
+    // classpath 'org.glassfish.jersey.containers:jersey-container-servlet:2.25.1'
+    // classpath 'org.openjdk.jmh:jmh-core:1.19'
+    // classpath 'org.openjdk.jmh:jmh-generator-annprocess:1.19'
+    // classpath 'org.openjdk.jmh:jmh-core-benchmarks:1.19'
+    // classpath 'junit:junit:4.12'
+    // classpath 'log4j:log4j:1.2.17'
+    // classpath 'com.typesafe.scala-logging:scala-logging_null:3.7.2'
+    // classpath 'net.sf.jopt-simple:jopt-simple:5.0.4'
+    // classpath 'org.lz4:lz4-java:1.4'
+    // classpath 'com.yammer.metrics:metrics-core:2.2.0'
+    // classpath 'org.powermock:powermock-module-junit4:2.0.0-beta.5'
+    // classpath 'org.powermock:powermock-api-easymock:2.0.0-beta.5'
+    // classpath 'org.reflections:reflections:0.9.11'
+    // classpath 'org.rocksdb:rocksdbjni:5.7.3'
+    // classpath 'org.scala-lang:scala-library:null'
+    // classpath 'org.scala-lang:scala-reflect:null'
+    // classpath 'org.scalatest:scalatest_null:3.0.4'
+    // classpath 'org.scoverage:scalac-scoverage-plugin_null:1.3.1'
+    // classpath 'org.scoverage:scalac-scoverage-runtime_null:1.3.1'
+    // classpath 'org.slf4j:slf4j-api:1.7.25'
+    // classpath 'org.slf4j:slf4j-log4j12:1.7.25'
+    // classpath 'org.xerial.snappy:snappy-java:1.1.7.1'
+    // classpath 'com.101tec:zkclient:0.10'
+    // classpath 'org.apache.zookeeper:zookeeper:3.4.10'
+    // classpath 'jfreechart:jfreechart:1.0.0'
+    // classpath 'org.apache.maven:maven-artifact:3.5.2'
+
+    //compile For Apache Rat plugin to ignore non-Git files
     classpath "org.ajoberstar:grgit:1.9.3"
     classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
     classpath 'org.scoverage:gradle-scoverage:2.1.0'
     classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.2'
     classpath 'org.owasp:dependency-check-gradle:3.0.2'
   }
+  apply from: file('gradle/buildscript.gradle'), to: buildscript
 }
 
+apply plugin: 'maven'
 apply from: "$rootDir/gradle/dependencies.gradle"
 
 allprojects {
@@ -141,8 +190,8 @@ subprojects {
   apply plugin: 'signing'
   apply plugin: 'checkstyle'
 
-  if (!JavaVersion.current().isJava9Compatible())
-    apply plugin: 'findbugs'
+//  if (!JavaVersion.current().isJava9Compatible())
+//    apply plugin: 'findbugs'
 
   sourceCompatibility = 1.7
   targetCompatibility = 1.7
@@ -322,28 +371,27 @@ subprojects {
 
   tasks.withType(ScalaCompile) {
     scalaCompileOptions.additionalParameters = [
-      "-deprecation",
-      "-unchecked",
       "-encoding", "utf8",
       "-Xlog-reflective-calls",
+     "-nowarn",
       "-feature",
       "-language:postfixOps",
       "-language:implicitConversions",
       "-language:existentials",
-      "-Xlint:by-name-right-associative",
-      "-Xlint:delayedinit-select",
-      "-Xlint:doc-detached",
-      "-Xlint:missing-interpolator",
-      "-Xlint:nullary-override",
-      "-Xlint:nullary-unit",
-      "-Xlint:option-implicit",
-      "-Xlint:package-object-classes",
-      "-Xlint:poly-implicit-overload",
-      "-Xlint:private-shadow",
-      "-Xlint:stars-align",
-      "-Xlint:type-parameter-shadow",
-      "-Xlint:unsound-match",
-    ]
+//      "-Xlint:by-name-right-associative",
+//      "-Xlint:delayedinit-select",
+//      "-Xlint:doc-detached",
+//      "-Xlint:missing-interpolator",
+//      "-Xlint:nullary-override",
+//      "-Xlint:nullary-unit",
+//      "-Xlint:option-implicit",
+//      "-Xlint:package-object-classes",
+////      "-Xlint:poly-implicit-overload",
+//      "-Xlint:private-shadow",
+//      "-Xlint:stars-align",
+//      "-Xlint:type-parameter-shadow",
+////       "-Xlint:unsound-match",
+]
 
     if (versions.baseScala != '2.11') {
       scalaCompileOptions.additionalParameters += [
@@ -366,7 +414,7 @@ subprojects {
   }
   test.dependsOn('checkstyleMain', 'checkstyleTest')
 
-  if (!JavaVersion.current().isJava9Compatible()) {
+  if (false){ // (!JavaVersion.current().isJava9Compatible()) {
     findbugs {
       toolVersion = "3.0.1"
       excludeFilter = file("$rootDir/gradle/findbugs-exclude.xml")
@@ -408,11 +456,11 @@ subprojects {
 
 }
 
-gradle.taskGraph.whenReady { taskGraph ->
-  taskGraph.getAllTasks().findAll { it.name.contains('findbugsScoverage') || it.name.contains('findbugsTest') }.each { task ->
-    task.enabled = false
-  }
-}
+//gradle.taskGraph.whenReady { taskGraph ->
+//  taskGraph.getAllTasks().findAll { it.name.contains('findbugsScoverage') || it.name.contains('findbugsTest') }.each { task ->
+//    task.enabled = false
+//  }
+//}
 
 def fineTuneEclipseClasspathFile(eclipse, project) {
   eclipse.classpath.file {
@@ -498,11 +546,11 @@ for ( sv in availableScalaVersions ) {
     tasks = ['core:docsJar']
   }
 
-  tasks.create(name: "install_${taskSuffix}", type: GradleBuild) {
-    startParameter = project.getGradle().getStartParameter().newInstance()
-    startParameter.projectProperties += [scalaVersion: "${sv}"]
-    tasks = ['install']
-  }
+//  tasks.create(name: "install_${taskSuffix}", type: GradleBuild) {
+//    startParameter = project.getGradle().getStartParameter().newInstance()
+//    startParameter.projectProperties += [scalaVersion: "${sv}"]
+ //   tasks = ['install']
+//  }
 
   tasks.create(name: "releaseTarGz_${taskSuffix}", type: GradleBuild) {
     startParameter = project.getGradle().getStartParameter().newInstance()
@@ -549,6 +597,55 @@ project(':core') {
   archivesBaseName = "kafka_${versions.baseScala}"
 
   dependencies {
+
+
+     runtime 'net.sourceforge.argparse4j:argparse4j:0.7.0'
+     runtime 'org.apache.directory.api:api-all:1.0.0'
+     runtime 'org.apache.directory.server:apacheds-core-api:2.0.0-M24'
+     runtime 'org.apache.directory.server:apacheds-interceptor-kerberos:2.0.0-M24'
+     runtime 'org.apache.directory.server:apacheds-protocol-shared:2.0.0-M24'
+     runtime 'org.apache.directory.server:apacheds-protocol-kerberos:2.0.0-M24'
+     runtime 'org.apache.directory.server:apacheds-protocol-ldap:2.0.0-M24'
+     runtime 'org.apache.directory.server:apacheds-ldif-partition:2.0.0-M24'
+     runtime 'org.apache.directory.server:apacheds-mavibot-partition:2.0.0-M24'
+     runtime 'org.apache.directory.server:apacheds-jdbm-partition:2.0.0-M24'
+     runtime 'org.bouncycastle:bcpkix-jdk15on:1.58'
+     runtime 'org.easymock:easymock:3.5.1'
+     runtime 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+     runtime 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.4'
+     runtime 'org.eclipse.jetty:jetty-server:9.2.24.v20180105'
+     runtime 'org.eclipse.jetty:jetty-client:9.2.24.v20180105'
+     runtime 'org.eclipse.jetty:jetty-servlet:9.2.24.v20180105'
+     runtime 'org.eclipse.jetty:jetty-servlets:9.2.24.v20180105'
+     runtime 'org.glassfish.jersey.containers:jersey-container-servlet:2.25.1'
+     runtime 'org.openjdk.jmh:jmh-core:1.19'
+     runtime 'org.openjdk.jmh:jmh-generator-annprocess:1.19'
+     runtime 'org.openjdk.jmh:jmh-core-benchmarks:1.19'
+     runtime 'junit:junit:4.12'
+     runtime 'log4j:log4j:1.2.17'
+     runtime 'com.typesafe.scala-logging:scala-logging_null:3.7.2'
+     runtime 'net.sf.jopt-simple:jopt-simple:5.0.4'
+     runtime 'org.lz4:lz4-java:1.4'
+     runtime 'com.yammer.metrics:metrics-core:2.2.0'
+     runtime 'org.powermock:powermock-module-junit4:2.0.0-beta.5'
+     runtime 'org.powermock:powermock-api-easymock:2.0.0-beta.5'
+     runtime 'org.reflections:reflections:0.9.11'
+     runtime 'org.rocksdb:rocksdbjni:5.7.3'
+     runtime 'org.scala-lang:scala-library:null'
+     runtime 'org.scala-lang:scala-reflect:null'
+     runtime 'org.scalatest:scalatest_null:3.0.4'
+     runtime 'org.scoverage:scalac-scoverage-plugin_null:1.3.1'
+     runtime 'org.scoverage:scalac-scoverage-runtime_null:1.3.1'
+     runtime 'org.slf4j:slf4j-api:1.7.25'
+     runtime 'org.slf4j:slf4j-log4j12:1.7.25'
+     runtime 'org.xerial.snappy:snappy-java:1.1.7.1'
+     runtime 'com.101tec:zkclient:0.10'
+     runtime 'org.apache.zookeeper:zookeeper:3.4.10'
+     runtime 'jfreechart:jfreechart:1.0.0'
+     runtime 'org.apache.maven:maven-artifact:3.5.2'
+
+
+
     compile project(':clients')
     compile libs.jacksonDatabind
     compile libs.joptSimple
@@ -1312,3 +1409,5 @@ task aggregatedJavadoc(type: Javadoc) {
   excludes = projectsWithJavadoc.collectMany { it.javadoc.getExcludes() }
   options.links "http://docs.oracle.com/javase/7/docs/api/"
 }
+
+
